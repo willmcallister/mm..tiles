@@ -47,7 +47,12 @@ p{
     opacity: 0;
 }
 
-
+.background-item {
+    img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
 
 @media screen and (max-width: 539px) {
     /* added to make sure title isn't too large on small screens */
