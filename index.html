@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="./lib/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
 
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -130,7 +133,35 @@
         <div class="row sm-margin">
             <div class="center-wide">
                 <p>Explore the full map.</p>
-                <iframe class="fit" height='80vh' src="https://api.mapbox.com/styles/v1/willmcallister/clyg2z4ys01eg01qjachmg6pd.html?title=false&access_token=pk.eyJ1Ijoid2lsbG1jYWxsaXN0ZXIiLCJhIjoiY2x5ZzJ2ZDdrMDY1bzJpcG55MGh4b2VnMSJ9.9v1r3wHkoj8UKMFJZRejWA&zoomwheel=false#5.56/43.055/-89.302" title="MM... FOOD"></iframe>
+                <div id="map"></div>
+                <script type="text/javascript">
+                    // create mapbox map and add custom mapbox studio map
+                    mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbG1jYWxsaXN0ZXIiLCJhIjoiY2x5ZzJ2ZDdrMDY1bzJpcG55MGh4b2VnMSJ9.9v1r3wHkoj8UKMFJZRejWA';
+                    const styleUrl = 'mapbox://styles/willmcallister/clyg2z4ys01eg01qjachmg6pd';
+
+                    const map = new mapboxgl.Map({
+                        container: 'map',
+                        style: styleUrl,
+                        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator          
+                        zoom: 5.5,
+                        center: [-89.4008, 43.0722],
+                        cooperativeGestures: true
+                    });
+                    
+                    // add controls for zoom and full screen
+                    map.addControl(new mapboxgl.FullscreenControl());
+                    map.addControl(new mapboxgl.NavigationControl());
+
+                    // set atmosphere styling
+                    map.on('style.load', () => {
+                        map.setFog({
+                            "color": "#000",
+                            "space-color": "#000",
+                            "high-color": "#000",
+                            "star-intensity": 0
+                        });
+                    });
+                </script>
             </div>
         </div>
         <!--text block-->
@@ -150,7 +181,6 @@
 
 <script type="text/javascript" src="./lib/scrollmap.js"></script>
 <script type="text/javascript" src="./lib/bootstrap.min.js"></script>
-<script type="text/javascript" defer src="./js/script.js"></script>
 
 </body>
 </html>
